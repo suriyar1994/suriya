@@ -7,45 +7,44 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-@SuppressWarnings("unused")
 @Entity
-@Table
+@Table(name = "product")
 @Component
-
-public class Category {
-
-	
+public class Product {
 	
 	private String id;
-
-
+	@Column(name="name")
 	private String name;
-
+	@Column(name="description")
 	private String description;
-
+	@Column(name="price")
+	private String price;
+	
 	@Id
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getDescription() {
+	public String getAddress() {
 		return description;
 	}
-
-	public void setDescription(String description) {
+	public void setAddress(String description) {
 		this.description = description;
 	}
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
+	
 
 }

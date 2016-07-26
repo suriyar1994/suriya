@@ -16,10 +16,21 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.niit.shoppingcart.dao.CategoryDAO;
 import com.niit.shoppingcart.dao.CategoryDAOImpl;
+import com.niit.shoppingcart.dao.ProductDAO;
+import com.niit.shoppingcart.dao.ProductDAOImpl;
+import com.niit.shoppingcart.dao.SupplierDAO;
+import com.niit.shoppingcart.dao.SupplierDAOImpl;
+import com.niit.shoppingcart.dao.UserDAO;
+import com.niit.shoppingcart.dao.UserDAOImpl;
 import com.niit.shoppingcart.model.Category;
+import com.niit.shoppingcart.model.Product;
+import com.niit.shoppingcart.model.Supplier;
+import com.niit.shoppingcart.model.User;
+
+
 
 @Configuration
-@ComponentScan("com.niit.shopingcart")
+@ComponentScan("com.niit.shoppingcart")
 @EnableTransactionManagement
 
 
@@ -54,6 +65,9 @@ public class ApplicationContextConfig {
     	LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
     	sessionBuilder.addProperties(getHibernateProperties());
     	sessionBuilder.addAnnotatedClass(Category.class);
+    	sessionBuilder.addAnnotatedClass(Supplier.class);
+    	sessionBuilder.addAnnotatedClass(Product.class);
+    	sessionBuilder.addAnnotatedClass(User.class);
       	return sessionBuilder.buildSessionFactory();
     }
     
@@ -78,6 +92,22 @@ public class ApplicationContextConfig {
 	    	return new CategoryDAOImpl(sessionFactory);
 	    }
 		
-	
-
+	  @Autowired
+	    @Bean(name = "supplierDao")
+	    public SupplierDAO getSupplierDao(SessionFactory sessionFactory) {
+	    	return new SupplierDAOImpl(sessionFactory);
+	    }
+		
+	  @Autowired
+	    @Bean(name = "productDao")
+	    public ProductDAO getProductDao(SessionFactory sessionFactory) {
+	    	return new ProductDAOImpl(sessionFactory);
+	    }
+	  @Autowired
+	    @Bean(name = "userDao")
+	    public UserDAO getUserDao(SessionFactory sessionFactory) {
+	    	return new UserDAOImpl(sessionFactory);
+	    }
+		
+		
 }

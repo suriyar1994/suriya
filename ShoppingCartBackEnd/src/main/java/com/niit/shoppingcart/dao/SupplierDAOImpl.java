@@ -12,58 +12,58 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.niit.shoppingcart.model.Category;
+import com.niit.shoppingcart.model.Supplier;
 
 @SuppressWarnings("unused")
-@Repository("categoryDAO")
-public class CategoryDAOImpl implements CategoryDAO {
+@Repository("supplierDAO")
+public class SupplierDAOImpl implements SupplierDAO {
 	
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 
-	public CategoryDAOImpl(SessionFactory sessionFactory) {
+	public SupplierDAOImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
 
 
 	@Transactional
-	public void saveOrUpdate(Category category) {
+	public void saveOrUpdate(Supplier category) {
 		sessionFactory.getCurrentSession().saveOrUpdate(category);
 			
 	}
 
 	@Transactional
 	public void delete(String id) {
-		Category category = new Category();
+		Supplier category = new Supplier();
 		category.setId(id);
 		sessionFactory.getCurrentSession().delete(category);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Category get(String id) {
-		String hql = "from Category where id=" + "'"+ id +"'";
+	public Supplier get(String id) {
+		String hql = "from Supplier where id=" + "'"+ id +"'";
 		//  from category where id = '101'
 		Query query =  sessionFactory.getCurrentSession().createQuery(hql);
-		List<Category> listCategory = (List<Category>) query.list();
+		List<Supplier> listSupplier = (List<Supplier>) query.list();
 		
-		if (listCategory != null && !listCategory.isEmpty()) {
-			return listCategory.get(0);
+		if (listSupplier != null && !listSupplier.isEmpty()) {
+			return listSupplier.get(0);
 		}
 		return null;
 	}
 	
 	@Transactional
-	public List<Category> list() {
+	public List<Supplier> list() {
 		@SuppressWarnings("unchecked")
-		List<Category> listCategory = (List<Category>) 
+		List<Supplier> listSupplier = (List<Supplier>) 
 		          sessionFactory.getCurrentSession()
-				.createCriteria(Category.class)
+				.createCriteria(Supplier.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return listCategory;
+		return listSupplier;
 	}
 	
 	

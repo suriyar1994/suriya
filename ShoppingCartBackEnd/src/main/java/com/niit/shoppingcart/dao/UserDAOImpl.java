@@ -12,58 +12,58 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.niit.shoppingcart.model.Category;
+import com.niit.shoppingcart.model.User;
 
 @SuppressWarnings("unused")
-@Repository("categoryDAO")
-public class CategoryDAOImpl implements CategoryDAO {
+@Repository("userDAO")
+public class UserDAOImpl implements UserDAO {
 	
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 
-	public CategoryDAOImpl(SessionFactory sessionFactory) {
+	public UserDAOImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
 
 
 	@Transactional
-	public void saveOrUpdate(Category category) {
+	public void saveOrUpdate(User category) {
 		sessionFactory.getCurrentSession().saveOrUpdate(category);
 			
 	}
 
 	@Transactional
 	public void delete(String id) {
-		Category category = new Category();
+		User category = new User();
 		category.setId(id);
 		sessionFactory.getCurrentSession().delete(category);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Transactional
-	public Category get(String id) {
-		String hql = "from Category where id=" + "'"+ id +"'";
+	public User get(String id) {
+		String hql = "from User where id=" + "'"+ id +"'";
 		//  from category where id = '101'
 		Query query =  sessionFactory.getCurrentSession().createQuery(hql);
-		List<Category> listCategory = (List<Category>) query.list();
+		@SuppressWarnings("unchecked")
+		List<User> listUser = (List<User>) query.list();
 		
-		if (listCategory != null && !listCategory.isEmpty()) {
-			return listCategory.get(0);
+		if (listUser != null && !listUser.isEmpty()) {
+			return listUser.get(0);
 		}
 		return null;
 	}
 	
 	@Transactional
-	public List<Category> list() {
+	public List<User> list() {
 		@SuppressWarnings("unchecked")
-		List<Category> listCategory = (List<Category>) 
+		List<User> listUser = (List<User>) 
 		          sessionFactory.getCurrentSession()
-				.createCriteria(Category.class)
+				.createCriteria(User.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return listCategory;
+		return listUser;
 	}
 	
 	

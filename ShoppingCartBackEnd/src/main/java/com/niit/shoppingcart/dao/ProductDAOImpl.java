@@ -12,58 +12,58 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.niit.shoppingcart.model.Category;
+import com.niit.shoppingcart.model.Product;
 
 @SuppressWarnings("unused")
-@Repository("categoryDAO")
-public class CategoryDAOImpl implements CategoryDAO {
+@Repository("productDAO")
+public class ProductDAOImpl implements ProductDAO {
 	
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 
-	public CategoryDAOImpl(SessionFactory sessionFactory) {
+	public ProductDAOImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
 
 
 	@Transactional
-	public void saveOrUpdate(Category category) {
+	public void saveOrUpdate(Product category) {
 		sessionFactory.getCurrentSession().saveOrUpdate(category);
 			
 	}
 
 	@Transactional
 	public void delete(String id) {
-		Category category = new Category();
+		Product category = new Product();
 		category.setId(id);
 		sessionFactory.getCurrentSession().delete(category);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Transactional
-	public Category get(String id) {
-		String hql = "from Category where id=" + "'"+ id +"'";
+	public Product get(String id) {
+		String hql = "from Product where id=" + "'"+ id +"'";
 		//  from category where id = '101'
 		Query query =  sessionFactory.getCurrentSession().createQuery(hql);
-		List<Category> listCategory = (List<Category>) query.list();
+		@SuppressWarnings("unchecked")
+		List<Product> listProduct = (List<Product>) query.list();
 		
-		if (listCategory != null && !listCategory.isEmpty()) {
-			return listCategory.get(0);
+		if (listProduct != null && !listProduct.isEmpty()) {
+			return listProduct.get(0);
 		}
 		return null;
 	}
 	
 	@Transactional
-	public List<Category> list() {
+	public List<Product> list() {
 		@SuppressWarnings("unchecked")
-		List<Category> listCategory = (List<Category>) 
+		List<Product> listProduct = (List<Product>) 
 		          sessionFactory.getCurrentSession()
-				.createCriteria(Category.class)
+				.createCriteria(Product.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return listCategory;
+		return listProduct;
 	}
 	
 	

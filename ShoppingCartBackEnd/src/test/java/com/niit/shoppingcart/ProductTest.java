@@ -2,10 +2,10 @@ package com.niit.shoppingcart;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.niit.shoppingcart.dao.CategoryDAO;
-import com.niit.shoppingcart.model.Category;
+import com.niit.shoppingcart.dao.ProductDAO;
+import com.niit.shoppingcart.model.Product;
 
-public class CategoryTest {
+public class ProductTest {
 	
 	
 	public static void main(String[] args) {
@@ -17,15 +17,16 @@ public class CategoryTest {
 		context.refresh();
 		
 		
-	   CategoryDAO categoryDAO = 	(CategoryDAO) context.getBean("categoryDAO");
+	   ProductDAO productDAO = 	(ProductDAO) context.getBean("productDAO");
 	   
-	   Category category = 	(Category) context.getBean("category");
-	   category.setId("CG120");
-	   category.setName("CGName120");
-	   category.setDescription("CGDesc120");
+	   Product product = 	(Product) context.getBean("product");
+	   product.setId("PR120");
+	   product.setName("PRName120");
+	   product.setAddress("PRDesc120");
+	   product.setPrice("100");
 	   
 	   
-	   categoryDAO.saveOrUpdate(category);
+	   productDAO.saveOrUpdate(product);
 	   
 	   
 	   
